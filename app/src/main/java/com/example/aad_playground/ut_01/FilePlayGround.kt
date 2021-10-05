@@ -3,6 +3,10 @@ package com.example.aad_playground.ut_01
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
+import kotlin.io.path.Path
+import kotlin.io.path.createDirectory
+import kotlin.io.path.deleteIfExists
+import kotlin.io.path.exists
 
 /**
  *
@@ -19,7 +23,8 @@ class FilePlayGround(private val activity: AppCompatActivity) {
         //readFile()
         //readLineByLine()
         //deleteFile()
-
+        //createFileInFolder()
+        //createFolder()
     }
 
     /**
@@ -81,10 +86,10 @@ class FilePlayGround(private val activity: AppCompatActivity) {
     /**
      * Método que escribe la lista de colores en un fichero
      */
-    fun saveToFile(colors: MutableList<String>) {
+    fun saveToFile(colors : MutableList<String>) {
         val file = File(activity.filesDir, "colors.txt")
 
-        if (file.exists().not()) {
+        if (!file.exists()) {
             colors.forEach {
                 file.appendText(it)
                 file.appendText("\n")
@@ -93,10 +98,28 @@ class FilePlayGround(private val activity: AppCompatActivity) {
     }
 
     /**
-     * Método que lee el fichero y devuelve una lista mutable con el contenido del fichero
+     * Método que lee el fichero y devuelve una lista mutable
+     * con el contenido del fichero
      */
-    fun readFromFile(): MutableList<String> {
+    fun readFromFile() : MutableList<String> {
         val file = File(activity.filesDir, "colors.txt")
-        return file.readLines().toMutableList()
+        return if (file.exists()){
+            file.readLines().toMutableList()
+        } else {
+            mutableListOf()
+        }
+    }
+
+    /**
+     * Función para crear carpetas
+     */
+    fun createFolder() {
+        val file = File(activity.filesDir, "/docs")
+        file.mkdir()
+    }
+
+    fun createFileInFolder(){
+        val file = File(activity.filesDir.canonicalPath, "/documents")
+        file.writeText("Hola!")
     }
 }
