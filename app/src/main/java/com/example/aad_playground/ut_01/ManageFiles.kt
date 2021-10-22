@@ -21,4 +21,9 @@ class ManageFiles (private val activity: AppCompatActivity){
             mutableListOf()
         }
     }
+
+    fun readFile(file_name : String): String{
+        val file = File(activity.filesDir, file_name)
+        return file.readText()
+    }
 }
