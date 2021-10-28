@@ -40,7 +40,7 @@ class MemLocalStorage<T : LocalModel> : LocalStorage<T> {
     override fun fetch(id: String): T? = dataStore.firstOrNull() { it.getId().toString() == id }
 }
 
-class SharPrefLocalModel<T : LocalModel>(
+class SharPrefLocalStorage<T : LocalModel>(
     private val activity: AppCompatActivity,
     private val serializer: Serializer<T>
 ) :

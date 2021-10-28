@@ -19,8 +19,8 @@ class DataSourceFactory<T : LocalModel>(
     fun create(idActionClicked: Int): LocalStorage<T> {
         return when (idActionClicked) {
             R.id.action_repository_file -> FileLocalStorage(activity, serializer)
-            R.id.action_repository_shapref -> SharPrefDataSource(activity, serializer)
-            else -> MemDataSource()
+            R.id.action_repository_shapref -> SharPrefLocalStorage(activity, serializer)
+            else -> MemLocalStorage()
         }
     }
 }
