@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AADPlayground">
         <activity
-            android:name=".ut02.SharedPreferencesActivity"
+            android:name=".ut02.exercise02.Exercise02Activity"
             android:exported="true">
 
             <intent-filter>
@@ -19,12 +19,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".ut02.SharedPreferencesActivity"
+            android:exported="true"/>
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"/>
     </application>
 
 </manifest>
