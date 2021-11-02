@@ -4,5 +4,5 @@ class AppRepository(private val localStorage: LocalStorage<AppModel>) {
 
     fun save(model: AppModel) = localStorage.save(model)
 
-    fun fetch(id: Int): AppModel? = localStorage.fetch(id)
+    fun fetch(): AppModel? = localStorage.fetch(AppModel.ID)
 }
