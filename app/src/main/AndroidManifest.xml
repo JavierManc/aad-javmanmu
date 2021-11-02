@@ -11,9 +11,6 @@
         android:theme="@style/Theme.AADPlayground">
         <activity
             android:name=".ut02.exercise03.Exercise03Activity"
-            android:exported="true" />
-        <activity
-            android:name=".ut02.exercise02.Exercise02Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ut02.exercise02.Exercise02Activity"
+            android:exported="true" />
         <activity
             android:name=".ut02.SharedPreferencesActivity"
             android:exported="true" />
