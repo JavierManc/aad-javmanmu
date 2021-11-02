@@ -5,20 +5,18 @@ interface LocalModel {
 }
 
 data class AppModel(
-    private val id: String,
-    val isFirstTime: Boolean = false,
-    private val rating: Float = 0f
+    private var firstTime: Boolean = true, private var rat: Float = 0f
 ) : LocalModel {
-    fun getFirstTime(): Boolean {
-        return isFirstTime
-    }
+    var isFirstTime = firstTime
+    var rating = rat
+    override fun getId(): String = ID
 
-    fun getRating(): Float {
-        return rating
-    }
-
-    override fun getId(): String {
-        return id
+    /**
+     * Método estático/ variables estática, es decir, se puede acceder desde fuera
+     * sin crearse un objeto.
+     */
+    companion object {
+        val ID = AppModel::class.java.simpleName
     }
 }
 
