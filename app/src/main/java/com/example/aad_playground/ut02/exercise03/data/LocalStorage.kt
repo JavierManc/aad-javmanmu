@@ -7,7 +7,7 @@ import com.example.aad_playground.commons.Serializer
 
 interface LocalStorage<T : LocalModel> {
     fun save(model: T)
-    fun fetch(id: Int): T?
+    fun fetch(id: String): T?
 }
 
 class SharPrefLocalStorage<T : LocalModel>(
@@ -26,8 +26,8 @@ class SharPrefLocalStorage<T : LocalModel>(
         editor.apply()
     }
 
-    override fun fetch(id: Int): T? {
-        val jsonModel = sharedPref.getString(id.toString(), "{}")
+    override fun fetch(id: String): T? {
+        val jsonModel = sharedPref.getString(id, "{}")
         return if (jsonModel != null) {
             serializer.fromJson(jsonModel)
         } else {
