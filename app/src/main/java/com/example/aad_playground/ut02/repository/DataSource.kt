@@ -59,12 +59,23 @@ class SharPrefDataSource<T : Model>(private val context: AppCompatActivity) : Da
 
     override fun fetch(id: Int): T? {
 
-        TODO("Not yet implemented")
+        val models = fetchAll()
+        models?.forEach {
+            if (it.getId() == id) {
+                return it
+            }
+        }
+        return null
 
 
     }
 
     override fun fetchAll(): List<T>? {
-        TODO("Not yet implemented")
+        val models: MutableList<T> = mutableListOf()
+
+        sharedPref.all?.values?.forEach {
+            models.add(gson.fromJson(it as String, type))
+        }
+        return models.toList()
     }
 }
