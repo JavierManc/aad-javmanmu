@@ -5,10 +5,10 @@ interface LocalModel {
 }
 
 data class AppModel(
-    private var firstTime: Boolean = true, private var rat: Float = 0f
+    private var firstTime: Boolean = true, private var newRating: Float = 0f
 ) : LocalModel {
     var isFirstTime = firstTime
-    var rating = rat
+    var rating = newRating
     override fun getId(): String = ID
 
     /**
