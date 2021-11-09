@@ -13,3 +13,9 @@ interface PersonDao {
     @Insert
     fun insert(personEntity: PersonEntity)
 }
+
+@Dao
+interface PetDao {
+    @Query("SELECT * FROM pet")
+    fun findAll(): List<PetEntity>
+}
