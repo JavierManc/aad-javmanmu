@@ -10,7 +10,14 @@ data class PersonEntity(
     @PrimaryKey @ColumnInfo(name = "id") val id: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "age") val age: Int
-){
+) {
 
     fun toModel(): PersonModel = PersonModel(id, name, age, null)
 }
+
+@Entity(tableName = "pet")
+data class PetEntity(
+    @PrimaryKey @ColumnInfo(name = "id") val id: Int,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "age") val age: Int
+)
