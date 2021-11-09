@@ -7,9 +7,15 @@ import androidx.room.RoomDatabase
 import com.example.aad_playground.ut03.ex02.data.PersonDao
 import com.example.aad_playground.ut03.ex02.data.PersonEntity
 import com.example.aad_playground.ut03.ex02.data.PetDao
+import com.example.aad_playground.ut03.ex02.data.PetEntity
 
-@Database(entities = [PersonEntity::class], version = 1)
+@Database(
+    entities = [PersonEntity::class, PetEntity::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class Ut03Ex02DataBase : RoomDatabase() {
+
     abstract fun personDao(): PersonDao
     abstract fun petDao(): PetDao
 

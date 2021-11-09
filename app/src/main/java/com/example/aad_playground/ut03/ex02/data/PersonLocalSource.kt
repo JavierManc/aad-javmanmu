@@ -22,14 +22,28 @@ class PersonLocalSource(aplicationContext: Context) {
     }
 
     fun save(personalModel: PersonModel) {
+        db.personDao().insertPersonAndPet(
+            PersonEntity(
+                personalModel.id,
+                personalModel.name,
+                personalModel.age
+            ),
+            PetEntity(
+                personalModel.pet.id,
+                personalModel.pet.name,
+                personalModel.pet.age,
+                personalModel.id
+            )
+        )
+        /*
         db.personDao().insert(
             PersonEntity(
                 personalModel.id,
                 personalModel.name,
-                personalModel.age,
-                db.petDao().findAll().first()
+                personalModel.age
             )
         )
+        */
     }
 
 }

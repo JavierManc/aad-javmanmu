@@ -27,7 +27,7 @@ class Example02Activity : AppCompatActivity() {
 
     private fun executeQuery() {
         Thread {
-            repository.savePerson(PersonModel(1, "Name01", 1, "1", PetModel(1, "Perro", 2)))
+            repository.savePerson(PersonModel(1, "Name01", 1, "1", PetModel(1, "Pet01", 2)))
             val people = repository.fetchAll()
             Log.d(TAG, "$people")
         }.start()

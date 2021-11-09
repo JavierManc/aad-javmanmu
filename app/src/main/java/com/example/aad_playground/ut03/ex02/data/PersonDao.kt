@@ -12,6 +12,9 @@ interface PersonDao {
 
     @Insert
     fun insert(personEntity: PersonEntity)
+
+    @Insert
+    fun insertPersonAndPet(personEntity: PersonEntity, petEntity: PetEntity)
 }
 
 @Dao
