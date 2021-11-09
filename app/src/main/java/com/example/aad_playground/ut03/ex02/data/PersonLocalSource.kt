@@ -10,7 +10,7 @@ class PersonLocalSource(aplicationContext: Context) {
 
     init {
         //Workaround
-        Thread{
+        Thread {
             db.clearAllTables()
             Thread.sleep(2000)
         }.start()
@@ -26,7 +26,8 @@ class PersonLocalSource(aplicationContext: Context) {
             PersonEntity(
                 personalModel.id,
                 personalModel.name,
-                personalModel.age
+                personalModel.age,
+                db.petDao().findAll().first()
             )
         )
     }

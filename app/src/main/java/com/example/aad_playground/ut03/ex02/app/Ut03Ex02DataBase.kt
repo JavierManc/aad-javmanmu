@@ -6,10 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.aad_playground.ut03.ex02.data.PersonDao
 import com.example.aad_playground.ut03.ex02.data.PersonEntity
+import com.example.aad_playground.ut03.ex02.data.PetDao
 
 @Database(entities = [PersonEntity::class], version = 1)
 abstract class Ut03Ex02DataBase : RoomDatabase() {
     abstract fun personDao(): PersonDao
+    abstract fun petDao(): PetDao
 
     companion object {
         @Volatile
