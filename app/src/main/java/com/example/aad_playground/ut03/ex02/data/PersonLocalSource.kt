@@ -12,14 +12,20 @@ class PersonLocalSource(aplicationContext: Context) {
         //Workaround
         Thread {
             db.clearAllTables()
-            Thread.sleep(2000)
         }.start()
+        Thread.sleep(1000)
     }
 
     fun findAll(): List<PersonModel> {
         val people = db.personDao().findAll()
-        return people.map { peopleEntity -> peopleEntity.toModel() }
+        return people.map { people -> people.toModel() }
     }
+
+    fun findPersonAndPet(): List<PersonModel> {
+        val entities = db.personDao().getPersonAndPets()
+        return entities?.map { personAndPet -> personAndPet.toModel() } ?: mutableListOf()
+    }
+
 
     fun save(personalModel: PersonModel) {
         db.personDao().insertPersonAndPet(
@@ -45,5 +51,13 @@ class PersonLocalSource(aplicationContext: Context) {
         )
         */
     }
+
+
+    fun saveWithoutId(personModel: PersonModel){
+        val personId =
+            db.personDao().insert(PersonEntity(name = personModel.name, age = personModel.age))
+    }
+
+
 
 }

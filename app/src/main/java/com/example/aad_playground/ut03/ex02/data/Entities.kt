@@ -6,20 +6,20 @@ import com.example.aad_playground.ut03.ex02.domain.PetModel
 
 @Entity(tableName = "person")
 data class PersonEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int? = null,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "age") val age: Int,
 ) {
 
-    fun toModel(): PersonModel = PersonModel(id, name, age, null, PetModel(1, "", 1))
+    fun toModel(): PersonModel = PersonModel(id!!, name, age, null, PetModel(1, "", 1))
 }
 
 @Entity(tableName = "pet")
 data class PetEntity(
-    @PrimaryKey @ColumnInfo(name = "id") val id: Int? = 0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") val id: Int? = 0,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "age") val age: Int,
-    @ColumnInfo(name = "person_id") val personId: Int
+    @ColumnInfo(name = "person_id") val personId: Int,
 ) {
     fun toModel(): PetModel = PetModel(id!!, name, age)
 }
@@ -32,7 +32,7 @@ data class PersonAndPet(
     ) val petEntity: PetEntity
 ) {
     fun toModel() = PersonModel(
-        personEntity.id,
+        personEntity.id!!,
         personEntity.name,
         personEntity.age,
         "",

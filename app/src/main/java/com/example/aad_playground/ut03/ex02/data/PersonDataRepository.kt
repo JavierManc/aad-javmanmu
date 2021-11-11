@@ -8,6 +8,6 @@ class PersonDataRepository(private val personLocalSource: PersonLocalSource) : P
         personLocalSource.save(personModel)
     }
 
-    override fun fetchAll(): List<PersonModel> = personLocalSource.findAll()
+    override fun fetchAll(): List<PersonModel> = personLocalSource.findPersonAndPet()
 
 }
