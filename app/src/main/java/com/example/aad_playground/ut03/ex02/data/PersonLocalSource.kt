@@ -17,8 +17,8 @@ class PersonLocalSource(aplicationContext: Context) {
     }
 
     fun findAll(): List<PersonModel> {
-        val people = db.personDao().findAll()
-        return people.map { people -> people.toModel() }
+        val entities = db.personDao().findAll()
+        return entities.map { people -> people.toModel() }
     }
 
     fun findPersonAndPet(): List<PersonModel> {
