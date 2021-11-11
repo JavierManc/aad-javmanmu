@@ -52,12 +52,4 @@ class PersonLocalSource(aplicationContext: Context) {
         */
     }
 
-
-    fun saveWithoutId(personModel: PersonModel){
-        val personId =
-            db.personDao().insert(PersonEntity(name = personModel.name, age = personModel.age))
-    }
-
-
-
 }
