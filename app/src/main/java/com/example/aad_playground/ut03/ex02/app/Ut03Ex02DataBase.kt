@@ -4,13 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.aad_playground.ut03.ex02.data.PersonDao
-import com.example.aad_playground.ut03.ex02.data.PersonEntity
-import com.example.aad_playground.ut03.ex02.data.PetDao
-import com.example.aad_playground.ut03.ex02.data.PetEntity
+import com.example.aad_playground.ut03.ex02.data.*
 
 @Database(
-    entities = [PersonEntity::class, PetEntity::class],
+    entities = [PersonEntity::class, PetEntity::class, CarEntity::class],
     version = 1,
     exportSchema = false
 )

@@ -1,6 +1,7 @@
 package com.example.aad_playground.ut03.ex02.data
 
 import androidx.room.*
+import com.example.aad_playground.ut03.ex02.domain.CarModel
 import com.example.aad_playground.ut03.ex02.domain.PersonModel
 import com.example.aad_playground.ut03.ex02.domain.PetModel
 
@@ -11,7 +12,8 @@ data class PersonEntity(
     @ColumnInfo(name = "age") val age: Int,
 ) {
 
-    fun toModel(): PersonModel = PersonModel(id!!, name, age, null, PetModel(1, "", 1))
+    fun toModel(): PersonModel =
+        PersonModel(id!!, name, age, null, PetModel(1, "", 1), mutableListOf())
 }
 
 @Entity(tableName = "pet")
@@ -36,6 +38,41 @@ data class PersonAndPet(
         personEntity.name,
         personEntity.age,
         "",
-        PetModel(petEntity.id!!, petEntity.name, petEntity.age)
+        PetModel(petEntity.id!!, petEntity.name, petEntity.age),
+        mutableListOf()
+    )
+}
+
+@Entity(tableName = "car")
+data class CarEntity(
+    @PrimaryKey @ColumnInfo(name = "id") val id: Int,
+    @ColumnInfo(name = "brand") val brand: String,
+    @ColumnInfo(name = "model") val model: String,
+    @ColumnInfo(name = "person_id") val personId: Int,
+)
+
+data class PersonAndPetAndCar(
+    @Embedded val personEntity: PersonEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "person_id"
+    ) val petEntity: PetEntity,
+
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "person_id"
+    ) val carEntity: List<CarEntity>
+
+) {
+
+    fun toModel() = PersonModel(
+        personEntity.id!!,
+        personEntity.name,
+        personEntity.age,
+        "",
+        PetModel(petEntity.id!!, petEntity.name, petEntity.age),
+        carEntity.map { element ->
+            CarModel(element.id, element.brand, element.model)
+        }.toMutableList()
     )
 }

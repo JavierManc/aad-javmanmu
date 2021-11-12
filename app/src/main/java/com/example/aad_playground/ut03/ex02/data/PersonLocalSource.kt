@@ -26,6 +26,12 @@ class PersonLocalSource(aplicationContext: Context) {
         return entities?.map { personAndPet -> personAndPet.toModel() } ?: mutableListOf()
     }
 
+    fun findPersonAndPetAndCar(): List<PersonModel> {
+        val entities = db.personDao().getPersonAndPetAndCars()
+        return entities?.map { personAndPetAndCar -> personAndPetAndCar.toModel() }
+            ?: mutableListOf()
+    }
+
 
     fun save(personalModel: PersonModel) {
         db.personDao().insertPersonAndPet(
@@ -39,7 +45,15 @@ class PersonLocalSource(aplicationContext: Context) {
                 personalModel.pet.name,
                 personalModel.pet.age,
                 personalModel.id
-            )
+            ),
+            personalModel.carModel.map { element ->
+                CarEntity(
+                    element.id,
+                    element.brand,
+                    element.model,
+                    personalModel.id
+                )
+            }
         )
         /*
         db.personDao().insert(
