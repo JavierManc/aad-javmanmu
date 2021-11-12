@@ -15,4 +15,7 @@ class PersonDataRepository(private val personLocalSource: PersonLocalSource) : P
     override fun findPersonAndPetAndCar(): List<PersonModel> =
         personLocalSource.findPersonAndPetAndCar()
 
+    override fun findPersonAndPetAndCarAndJob(): List<PersonModel> =
+        personLocalSource.findPersonAndPetAndCarAndJob()
+
 }

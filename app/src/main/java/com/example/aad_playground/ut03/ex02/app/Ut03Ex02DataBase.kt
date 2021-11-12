@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.aad_playground.ut03.ex02.data.*
 
 @Database(
-    entities = [PersonEntity::class, PetEntity::class, CarEntity::class],
+    entities = [PersonEntity::class, PetEntity::class, CarEntity::class, JobEntity::class, PersonJobEntity::class],
     version = 1,
     exportSchema = false
 )

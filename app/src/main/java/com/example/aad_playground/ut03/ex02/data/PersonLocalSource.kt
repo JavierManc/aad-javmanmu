@@ -32,38 +32,24 @@ class PersonLocalSource(aplicationContext: Context) {
             ?: mutableListOf()
     }
 
+    fun findPersonAndPetAndCarAndJob(): List<PersonModel> {
+        val entities = db.personDao().getPersonAndPetAndCarsAndJob()
+        return entities?.map { personAndPetAndCarAndJob -> personAndPetAndCarAndJob.toModel() }
+            ?: mutableListOf()
+    }
+
 
     fun save(personalModel: PersonModel) {
-        db.personDao().insertPersonAndPet(
-            PersonEntity(
+        db.personDao().insertPeopleAndPetAndCarsAndJobs(
+            PersonEntity.toEntity(personalModel),
+            PetEntity.toEntity(personalModel.pet, personalModel.id),
+            CarEntity.toEntity(personalModel.carModel, personalModel.id),
+            JobEntity.toEntity(personalModel.jobModel),
+            PersonJobEntity.toEntity(
                 personalModel.id,
-                personalModel.name,
-                personalModel.age
-            ),
-            PetEntity(
-                personalModel.pet.id,
-                personalModel.pet.name,
-                personalModel.pet.age,
-                personalModel.id
-            ),
-            personalModel.carModel.map { element ->
-                CarEntity(
-                    element.id,
-                    element.brand,
-                    element.model,
-                    personalModel.id
-                )
-            }
-        )
-        /*
-        db.personDao().insert(
-            PersonEntity(
-                personalModel.id,
-                personalModel.name,
-                personalModel.age
+                personalModel.jobModel.map { it.id }.toList()
             )
         )
-        */
     }
 
 }

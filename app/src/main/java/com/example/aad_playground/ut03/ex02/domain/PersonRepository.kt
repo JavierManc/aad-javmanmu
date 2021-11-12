@@ -5,4 +5,5 @@ interface PersonRepository {
     fun fetchAll(): List<PersonModel>
     fun findPersonAndPet(): List<PersonModel>
     fun findPersonAndPetAndCar(): List<PersonModel>
+    fun findPersonAndPetAndCarAndJob(): List<PersonModel>
 }
