@@ -1,4 +1,4 @@
-package com.example.aad_playground.ut03.ex03.app
+package com.example.aad_playground.ut03.ex03.app.remote
 
 import com.example.aad_playground.ut03.ex03.data.remote.AlertApiModel
 import okhttp3.OkHttpClient

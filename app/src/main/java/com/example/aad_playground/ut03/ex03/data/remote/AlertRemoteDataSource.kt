@@ -1,6 +1,6 @@
 package com.example.aad_playground.ut03.ex03.data.remote
 
-import com.example.aad_playground.ut03.ex03.app.ApiClient
+import com.example.aad_playground.ut03.ex03.app.remote.ApiClient
 import com.example.aad_playground.ut03.ex03.domain.AlertModel
 
 
