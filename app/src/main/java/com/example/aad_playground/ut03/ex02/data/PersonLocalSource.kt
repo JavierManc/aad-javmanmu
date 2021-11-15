@@ -3,6 +3,8 @@ package com.example.aad_playground.ut03.ex02.data
 import android.content.Context
 import com.example.aad_playground.ut03.ex02.app.Ut03Ex02DataBase
 import com.example.aad_playground.ut03.ex02.domain.PersonModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class PersonLocalSource(aplicationContext: Context) {
 
@@ -32,9 +34,9 @@ class PersonLocalSource(aplicationContext: Context) {
             ?: mutableListOf()
     }
 
-    fun findPersonAndPetAndCarAndJob(): List<PersonModel> {
+    suspend fun findPersonAndPetAndCarAndJob(): List<PersonModel> = withContext(Dispatchers.IO) {
         val entities = db.personDao().getPersonAndPetAndCarsAndJob()
-        return entities?.map { personAndPetAndCarAndJob -> personAndPetAndCarAndJob.toModel() }
+        entities?.map { personAndPetAndCarAndJob -> personAndPetAndCarAndJob.toModel() }
             ?: mutableListOf()
     }
 

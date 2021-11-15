@@ -2,20 +2,17 @@ package com.example.aad_playground.ut03.ex02.data
 
 import com.example.aad_playground.ut03.ex02.domain.PersonModel
 import com.example.aad_playground.ut03.ex02.domain.PersonRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class PersonDataRepository(private val personLocalSource: PersonLocalSource) : PersonRepository {
     override fun savePerson(personModel: PersonModel) {
         personLocalSource.save(personModel)
     }
 
-    override fun fetchAll(): List<PersonModel> = personLocalSource.findAll()
-
-    override fun findPersonAndPet(): List<PersonModel> = personLocalSource.findPersonAndPet()
-
-    override fun findPersonAndPetAndCar(): List<PersonModel> =
-        personLocalSource.findPersonAndPetAndCar()
-
-    override fun findPersonAndPetAndCarAndJob(): List<PersonModel> =
+    override suspend fun fetchAll(): List<PersonModel> = withContext(Dispatchers.IO){
         personLocalSource.findPersonAndPetAndCarAndJob()
+    }
+
 
 }
