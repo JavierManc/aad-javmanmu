@@ -13,8 +13,6 @@ import com.example.aad_playground.ut03.ex03.domain.GetAlertsUseCase
 
 class Ut03Ex03Activity : AppCompatActivity() {
 
-    private val TAG = Ut03Ex03Activity::class.java.simpleName
-
     private lateinit var viewModel: Ut03Ex03ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,17 +40,11 @@ class Ut03Ex03Activity : AppCompatActivity() {
 
 
     private fun getAllAlerts() {
-        Thread {
-            val alerts = viewModel.getAlerts()
-            alerts.forEach { element -> Log.d(TAG, element.toString()) }
-        }.start()
+        viewModel.getAlerts()
     }
 
     private fun getAlertById() {
         val alertId = "1900673"
-        Thread {
-            val alert = viewModel.findAlert(alertId)
-            Log.d(TAG, alert.toString())
-        }.start()
+        viewModel.findAlert(alertId)
     }
 }
