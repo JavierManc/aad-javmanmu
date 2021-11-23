@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AADPlayground">
-
+        <activity
+            android:name=".ut_01.ex02.Ut01Ex02Activity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
