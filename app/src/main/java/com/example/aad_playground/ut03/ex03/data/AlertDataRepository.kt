@@ -1,13 +1,13 @@
 package com.example.aad_playground.ut03.ex03.data
 
-import com.example.aad_playground.ut03.ex03.data.local.AlertLocalSource
+import com.example.aad_playground.ut03.ex03.data.local.db.AlertDbLocalSource
 import com.example.aad_playground.ut03.ex03.data.remote.AlertRemoteSource
 import com.example.aad_playground.ut03.ex03.domain.AlertModel
 import com.example.aad_playground.ut03.ex03.domain.AlertRepository
 
 class AlertDataRepository(
     private val remoteSource: AlertRemoteSource,
-    private val localSource: AlertLocalSource
+    private val localSource: AlertDbLocalSource
 ) : AlertRepository {
 
     override fun fetchAll(): List<AlertModel> {
@@ -20,7 +20,7 @@ class AlertDataRepository(
         }
     }
 
-    override fun fetchById(alertId: String): AlertModel {
+    override fun fetchById(alertId: String): AlertModel? {
         return localSource.getAlert(alertId)
     }
 }

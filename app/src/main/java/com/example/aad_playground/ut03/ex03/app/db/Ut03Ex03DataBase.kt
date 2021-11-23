@@ -1,14 +1,15 @@
-package com.example.aad_playground.ut03.ex03.app.local
+package com.example.aad_playground.ut03.ex03.app.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.aad_playground.ut03.ex03.data.local.AlertDao
-import com.example.aad_playground.ut03.ex03.data.local.AlertEntity
+import com.example.aad_playground.ut03.ex03.data.local.db.AlertDao
+import com.example.aad_playground.ut03.ex03.data.local.db.AlertEntity
+import com.example.aad_playground.ut03.ex03.data.local.db.FileEntity
 
 @Database(
-    entities = [AlertEntity::class],
+    entities = [AlertEntity::class, FileEntity::class],
     version = 1,
     exportSchema = false
 )

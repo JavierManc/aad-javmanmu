@@ -2,11 +2,11 @@ package com.example.aad_playground.ut03.ex03.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.aad_playground.R
 import com.example.aad_playground.ut03.ex03.app.remote.RetrofitApiClient
 import com.example.aad_playground.ut03.ex03.data.AlertDataRepository
-import com.example.aad_playground.ut03.ex03.data.local.AlertLocalSource
+import com.example.aad_playground.ut03.ex03.data.local.*
+import com.example.aad_playground.ut03.ex03.data.local.db.AlertDbLocalSource
 import com.example.aad_playground.ut03.ex03.data.remote.AlertRemoteSource
 import com.example.aad_playground.ut03.ex03.domain.FindAlertUseCase
 import com.example.aad_playground.ut03.ex03.domain.GetAlertsUseCase
@@ -22,15 +22,13 @@ class Ut03Ex03Activity : AppCompatActivity() {
             GetAlertsUseCase(
                 AlertDataRepository(
                     AlertRemoteSource(RetrofitApiClient()),
-                    AlertLocalSource(
-                        applicationContext
-                    )
+                    AlertDbLocalSource(SharedPrefLocalStorage(applicationContext))
                 )
             ),
             FindAlertUseCase(
                 AlertDataRepository(
                     AlertRemoteSource(RetrofitApiClient()),
-                    AlertLocalSource(applicationContext)
+                    AlertDbLocalSource(SharedPrefLocalStorage(applicationContext))
                 )
             )
         )
