@@ -1,8 +1,6 @@
 package com.example.aad_playground.ut_01.ex02
 
-import com.example.aad_playground.ut_01.ex02.serializer.GsonSerializer
 import com.example.aad_playground.ut_01.ex02.serializer.JsonSerializer
-import com.google.gson.Gson
 import java.io.File
 
 /**
@@ -25,7 +23,9 @@ class CustomerFileLocalSource(
      * Función que me permite guardar un listado de clientes en un fichero.
      */
     fun save(customers: List<CustomerModel>) {
-        deleteFile()
+        if (file.exists()) {
+            deleteFile()
+        }
         customers.forEach { customer ->
             save(customer)
         }
@@ -37,10 +37,10 @@ class CustomerFileLocalSource(
      */
     fun update(customer: CustomerModel) {
         val customerList = fetch().toMutableList()
-        var i=0
-        while (i<customerList.size){
-            if (customerList[i].id==customer.id){
-                customerList[i]=customer
+        var i = 0
+        while (i < customerList.size) {
+            if (customerList[i].id == customer.id) {
+                customerList[i] = customer
             }
             i++
         }
@@ -52,10 +52,10 @@ class CustomerFileLocalSource(
      */
     fun remove(customerId: Int) {
         val customerList = fetch().toMutableList()
-        var i=0
-        while (i<customerList.size){
-            if (customerList[i].id==customerId){
-                //customerList[i]=
+        var i = 0
+        while (i < customerList.size) {
+            if (customerList[i].id == customerId) {
+                customerList.remove(customerList[i])
             }
             i++
         }
