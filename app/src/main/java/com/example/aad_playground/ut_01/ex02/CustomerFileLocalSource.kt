@@ -67,8 +67,8 @@ class CustomerFileLocalSource(
      */
     fun fetch(): List<CustomerModel> {
         return if (file.exists()) {
-            file.readLines().map { alert ->
-                gson.fromJson(alert, CustomerModel::class.java)
+            file.readLines().map { entity ->
+                gson.fromJson(entity, CustomerModel::class.java)
             }
         } else {
             return emptyList()
