@@ -20,4 +20,7 @@
 
     <!-- Boton reset ejercicio 3 unidad 2 -->
     <string name="label_button_reset">Reset</string>
+
+    <!-- String del ejercicio 4 de sharedpreferences -->
+    <string name="preference_file_exercise04">ut02_exercise04</string>
 </resources>
