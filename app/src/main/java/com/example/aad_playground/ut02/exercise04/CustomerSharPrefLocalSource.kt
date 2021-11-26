@@ -1,8 +1,6 @@
 package com.example.aad_playground.ut02.exercise04
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.aad_playground.R
@@ -15,12 +13,7 @@ import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
 class CustomerSharPrefLocalSource(
     activity: AppCompatActivity,
     private val json: JsonSerializer
-) {
-
-    private val sharedpref = activity.getSharedPreferences(
-        activity.getString(R.string.preference_file_exercise04),
-        Context.MODE_PRIVATE
-    )
+) : LocalSource {
 
     private val masterKey = MasterKey.Builder(activity)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -37,17 +30,23 @@ class CustomerSharPrefLocalSource(
     /**
      * Función que me permite guardar un cliente en un SharedPreferences.
      */
-    fun save(customer: CustomerModel) {
+    override fun save(model: IModels) {
         val edit = encryptSharedPref.edit()
-        edit.putString(customer.id.toString(), json.toJson(customer, CustomerModel::class.java))
+        edit.putString(
+            model.getId().toString(),
+            json.toJson(model, IModels::class.java)
+        )
         edit.apply()
     }
 
     /**
      * Función que me permite guardar un listado de clientes en un SharedPreferences.
      */
-    fun save(customers: List<CustomerModel>) {
-
+    override fun save(modelList: List<IModels>) {
+        removeAll()
+        modelList.map { entity ->
+            save(entity)
+        }
     }
 
     /**
@@ -55,25 +54,53 @@ class CustomerSharPrefLocalSource(
      * Se puede modificar cualquier dato excepto el id del cliente.
      */
     fun update(customer: CustomerModel) {
-        //TODO
+        if (encryptSharedPref.contains(customer.customerId.toString())) {
+            remove(customer.customerId)
+        }
+        encryptSharedPref.edit()
+            .putString(
+                customer.customerId.toString(),
+                json.toJson(customer, CustomerModel::class.java)
+            )
+            .apply()
+
     }
 
     /**
      * Función que me permite eliminar un cliente de un SharedPreferences.
      */
-    fun remove(customerId: Int) {
+    override fun remove(modelId: Int) {
+        if (encryptSharedPref.contains(modelId.toString())) {
+            val edit = encryptSharedPref.edit()
+            edit.remove(modelId.toString())
+            edit.apply()
+        }
+    }
 
+    /**
+     * Función que elimina todos los customer del archivo
+     */
+    fun removeAll() {
+        val edit = encryptSharedPref.edit()
+        encryptSharedPref.all.map {
+            edit.remove(it.key)
+        }
+        edit.apply()
     }
 
     /**
      * Función que me permite obtener un listado de todos los clientes almacenados en un SharedPreferences.
      */
-    /*fun fetch(): List<CustomerModel> {
-        val list: MutableList<CustomerModel>
-        encryptSharedPref.all.values
+    override fun fetch(): List<CustomerModel> {
+        val list: MutableList<CustomerModel> = mutableListOf()
+        encryptSharedPref.all.map {
+            list.add(it.value as CustomerModel)
+        }
+        return list
     }
-*/
-    fun findById(customerId: Int): CustomerModel? {
-        return encryptSharedPref.getString(customerId.toString(), "def")?.let { json.fromJson(it, CustomerModel::class.java) }
+
+    override fun fetchById(modelId: Int): IModels? {
+        return encryptSharedPref.getString(modelId.toString(), "def")
+            ?.let { json.fromJson(it, CustomerModel::class.java) }
     }
 }

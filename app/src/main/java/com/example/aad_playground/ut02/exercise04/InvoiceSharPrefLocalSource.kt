@@ -1,35 +1,73 @@
 package com.example.aad_playground.ut02.exercise04
 
+import android.content.Context
+import androidx.appcompat.app.AppCompatActivity
+import com.example.aad_playground.R
+import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
+
 
 /**
  * Clase para persistir información en SharedPreferences.
  */
-class InvoiceSharPrefLocalSource {
+class InvoiceSharPrefLocalSource(
+    activity: AppCompatActivity,
+    private val json: JsonSerializer
+) : LocalSource {
+
+    private val sharedpref = activity.getSharedPreferences(
+        activity.getString(R.string.preference_file_exercise04),
+        Context.MODE_PRIVATE
+    )
 
     /**
      * Función que me permite guardar un cliente en un sharedprefe.
      */
-    fun save(invoice: InvoiceModel) {
-        //TODO
+    override fun save(model: IModels) {
+        val edit = sharedpref.edit()
+        edit.putString(model.getId().toString(), json.toJson(model, IModels::class.java))
+        edit.apply()
+    }
+
+    override fun save(modelList: List<IModels>) {
+        removeAll()
+        modelList.map { entity ->
+            save(entity)
+        }
+    }
+
+    fun removeAll() {
+        val edit = sharedpref.edit()
+        sharedpref.all.map {
+            edit.remove(it.key)
+        }
+        edit.apply()
     }
 
     /**
      * Función que me permite eliminar un cliente de un SharedPreferences.
      */
-    fun remove(invoiceId: Int) {
-
+    override fun remove(modelId: Int) {
+        if (sharedpref.contains(modelId.toString())) {
+            val edit = sharedpref.edit()
+            edit.remove(modelId.toString())
+            edit.apply()
+        }
     }
 
     /**
      * Función que me permite obtener un listado de todos los clientes almacenados en un SharedPreferences.
      */
-    fun fetch(): List<InvoiceModel> {
-        //TODO
-        return emptyList()
+    override fun fetch(): List<IModels> {
+        val invoiceList: MutableList<InvoiceModel> = mutableListOf()
+        sharedpref.all.map {
+            invoiceList.add(it.value as InvoiceModel)
+        }
+
+        return invoiceList
     }
 
-    fun findById(invoiceId: Int): InvoiceModel? {
-        //TODO
-        return null
+    override fun fetchById(modelId: Int): InvoiceModel? {
+        return sharedpref.getString(modelId.toString(), "def")
+            ?.let { json.fromJson(it, InvoiceModel::class.java) }
     }
 }

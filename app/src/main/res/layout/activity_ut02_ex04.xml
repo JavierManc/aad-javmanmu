@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ut02.exercise04.Ut02Ex04Activity">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save_customers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_customers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/get_customers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_customers"
+        app:layout_constraintStart_toEndOf="@id/save_customers"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delete_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_customers"
+        app:layout_constraintStart_toStartOf="@id/save_customers"
+        app:layout_constraintTop_toBottomOf="@id/save_customers" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_customer1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_one_customer"
+        app:layout_constraintStart_toEndOf="@id/delete_customer"
+        app:layout_constraintTop_toBottomOf="@id/save_customers" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/save_invoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_invoice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/delete_customer" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/get_invoices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_invoice"
+        app:layout_constraintStart_toEndOf="@id/save_invoice"
+        app:layout_constraintTop_toBottomOf="@id/delete_customer" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/delete_invoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_invoice"
+        app:layout_constraintStart_toStartOf="@id/save_invoice"
+        app:layout_constraintTop_toBottomOf="@id/save_invoice" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_invoice1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/get_one_invoice"
+        app:layout_constraintStart_toEndOf="@id/delete_invoice"
+        app:layout_constraintTop_toBottomOf="@id/save_invoice" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
