@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ut02.exercise04.Ut02Ex04Activity">
+    tools:context=".ut02.exercise04.presentation.Ut02Ex04Activity">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/save_customers"

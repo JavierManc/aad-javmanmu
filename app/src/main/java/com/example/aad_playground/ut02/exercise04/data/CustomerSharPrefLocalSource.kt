@@ -1,9 +1,11 @@
-package com.example.aad_playground.ut02.exercise04
+package com.example.aad_playground.ut02.exercise04.data
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.aad_playground.R
+import com.example.aad_playground.ut02.exercise04.domain.CustomerModel
+import com.example.aad_playground.ut02.exercise04.domain.IModels
 import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
 
 

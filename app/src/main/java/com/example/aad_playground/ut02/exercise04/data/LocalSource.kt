@@ -1,4 +1,6 @@
-package com.example.aad_playground.ut02.exercise04
+package com.example.aad_playground.ut02.exercise04.data
+
+import com.example.aad_playground.ut02.exercise04.domain.IModels
 
 interface LocalSource {
     fun save(model: IModels)

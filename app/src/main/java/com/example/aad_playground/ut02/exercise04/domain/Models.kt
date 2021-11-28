@@ -1,4 +1,4 @@
-package com.example.aad_playground.ut02.exercise04
+package com.example.aad_playground.ut02.exercise04.domain
 
 import java.util.*
 

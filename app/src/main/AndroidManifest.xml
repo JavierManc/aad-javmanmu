@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AADPlayground">
         <activity
-            android:name=".ut02.exercise04.Ut02Ex04Activity"
+            android:name=".ut02.exercise04.presentation.Ut02Ex04Activity"
             android:exported="false" />
         <activity
             android:name=".ut02.exercise03.Exercise03Activity"
