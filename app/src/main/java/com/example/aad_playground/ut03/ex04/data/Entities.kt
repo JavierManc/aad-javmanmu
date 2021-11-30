@@ -2,6 +2,9 @@ package com.example.aad_playground.ut03.ex04.data
 
 import androidx.room.*
 import com.example.aad_playground.ut03.ex04.domain.CustomerModel
+import com.example.aad_playground.ut03.ex04.domain.InvoiceLinesModel
+import com.example.aad_playground.ut03.ex04.domain.InvoiceModel
+import com.example.aad_playground.ut03.ex04.domain.ProductModel
 import java.util.*
 
 @Entity(tableName = "customers")
@@ -35,7 +38,16 @@ data class ProductEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "model") val model: String,
     @ColumnInfo(name = "price") val price: Double
-)
+) {
+    fun toModel(): ProductModel {
+        return ProductModel(
+            this.id,
+            this.name,
+            this.model,
+            this.price
+        )
+    }
+}
 
 @Entity(tableName = "invoice")
 data class InvoiceEntity(
@@ -52,6 +64,7 @@ data class InvoiceLinesEntity(
     @ColumnInfo(name = "invoice_id") val invoiceId: Int,
     @ColumnInfo(name = "product_id") val productId: Int
 ) {
+
     companion object {
         fun toEntity(invoiceId: Int, productsId: List<Int>) {
             productsId.map { InvoiceLinesEntity(invoiceId, it) }
@@ -70,8 +83,10 @@ data class InvoiceLinesWithCustomer(
         parentColumn = "id",
         entityColumn = "id",
         associateBy = Junction(
-            value = InvoiceLinesEntity
+            value = InvoiceLinesEntity::class,
+            parentColumn = "invoice_id",
+            entityColumn = "product_id"
         )
-    )
+    ) val invoiceLinesEntity: List<InvoiceLinesEntity>
 )
 
