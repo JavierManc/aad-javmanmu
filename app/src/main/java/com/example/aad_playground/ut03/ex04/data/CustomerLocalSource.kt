@@ -8,11 +8,11 @@ class CustomerLocalSource(aplicationContext: Context) {
 
     private val db = Ut03Ex04DataBase.getInstance(aplicationContext)
 
-    fun findAll(): List<CustomerModel> {
+    fun fetchAll(): List<CustomerModel> {
         return db.customerDao().findAllCustomers().map { entity -> entity.toModel() }
     }
 
-    fun findById(id: Int): CustomerModel {
+    fun fetchById(id: Int): CustomerModel {
         return db.customerDao().findCustomerByID(id).toModel()
     }
 
@@ -21,11 +21,8 @@ class CustomerLocalSource(aplicationContext: Context) {
     }
 
     fun saveCustomerList(customerList: List<CustomerModel>) {
-        db.customerDao()
-            .saveCustomerList(
-                customerList.map { model ->
-                    CustomerEntity.toEntity(model)
-                }
-            )
+        customerList.forEach { entity ->
+            saveCustomer(entity)
+        }
     }
 }

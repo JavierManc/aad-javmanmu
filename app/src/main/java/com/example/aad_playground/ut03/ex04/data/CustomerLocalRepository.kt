@@ -1,9 +1,9 @@
 package com.example.aad_playground.ut03.ex04.data
 
 import com.example.aad_playground.ut03.ex04.domain.CustomerModel
-import com.example.aad_playground.ut03.ex04.domain.ModelRepository
+import com.example.aad_playground.ut03.ex04.domain.CustomerRepository
 
-class LocalRepository(private val customerLocalSource: CustomerLocalSource) : ModelRepository {
+class CustomerLocalRepository(private val customerLocalSource: CustomerLocalSource) : CustomerRepository {
     override fun saveCustomerList(modelList: List<CustomerModel>) {
         customerLocalSource.saveCustomerList(modelList)
     }
@@ -13,10 +13,10 @@ class LocalRepository(private val customerLocalSource: CustomerLocalSource) : Mo
     }
 
     override fun fetchAllCustomers(): List<CustomerModel> {
-        return customerLocalSource.findAll()
+        return customerLocalSource.fetchAll()
     }
 
     override fun fetchCustomerById(id: Int): CustomerModel {
-        return customerLocalSource.findById(id)
+        return customerLocalSource.fetchById(id)
     }
 }
