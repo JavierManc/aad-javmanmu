@@ -2,10 +2,7 @@ package com.example.aad_playground.ut03.ex04.data
 
 import androidx.room.*
 import com.example.aad_playground.ut03.ex04.domain.CustomerModel
-import com.example.aad_playground.ut03.ex04.domain.InvoiceLinesModel
-import com.example.aad_playground.ut03.ex04.domain.InvoiceModel
 import com.example.aad_playground.ut03.ex04.domain.ProductModel
-import java.util.*
 
 @Entity(tableName = "customers")
 data class CustomerEntity(
