@@ -31,7 +31,6 @@ data class CustomerEntity(
         }
     }
 }
-
 @Entity(tableName = "product")
 data class ProductEntity(
     @PrimaryKey @ColumnInfo(name = "id") val id: Int,
@@ -52,7 +51,7 @@ data class ProductEntity(
 @Entity(tableName = "invoice")
 data class InvoiceEntity(
     @PrimaryKey @ColumnInfo(name = "id") val id: Int,
-    @ColumnInfo(name = "date") val date: Date,
+    @ColumnInfo(name = "date") val date: String,
     @ColumnInfo(name = "customer_id") val customerId: Int
 )
 
@@ -60,6 +59,7 @@ data class InvoiceEntity(
     tableName = "invoice_lines_entity",
     primaryKeys = ["invoice_id", "product_id"]
 )
+
 data class InvoiceLinesEntity(
     @ColumnInfo(name = "invoice_id") val invoiceId: Int,
     @ColumnInfo(name = "product_id") val productId: Int
@@ -81,7 +81,7 @@ data class InvoiceLinesWithCustomer(
 
     @Relation(
         parentColumn = "id",
-        entityColumn = "id",
+        entityColumn = "product_id",
         associateBy = Junction(
             value = InvoiceLinesEntity::class,
             parentColumn = "invoice_id",
@@ -89,4 +89,3 @@ data class InvoiceLinesWithCustomer(
         )
     ) val invoiceLinesEntity: List<InvoiceLinesEntity>
 )
-
