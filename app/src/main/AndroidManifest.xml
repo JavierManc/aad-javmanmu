@@ -11,7 +11,7 @@
         android:theme="@style/Theme.AADPlayground">
         <activity
             android:name=".ut03.ex04.presentation.Ut03Ex04Activity"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
