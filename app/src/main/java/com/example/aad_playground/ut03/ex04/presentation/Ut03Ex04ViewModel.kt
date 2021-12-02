@@ -4,6 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.aad_playground.ut03.ex04.domain.*
+import com.example.aad_playground.ut03.ex04.domain.customer_use_case.FetchAllCustomersUseCase
+import com.example.aad_playground.ut03.ex04.domain.customer_use_case.FetchCustomerByIdUseCase
+import com.example.aad_playground.ut03.ex04.domain.customer_use_case.SaveCustomerUseCase
+import com.example.aad_playground.ut03.ex04.domain.invoice_use_case.FetchAllInvoiceUseCase
+import com.example.aad_playground.ut03.ex04.domain.invoice_use_case.FetchInvoiceByIdUseCase
+import com.example.aad_playground.ut03.ex04.domain.invoice_use_case.SaveInvoiceUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
