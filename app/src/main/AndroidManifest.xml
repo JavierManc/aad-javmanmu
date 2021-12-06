@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AADPlayground">
         <activity
+            android:name=".ut03.ex06.presentation.Ut03Ex06Activity"
+            android:exported="false" />
+        <activity
             android:name=".ut03.ex02.presentation.Example02Activity"
             android:exported="true">
             <intent-filter>
