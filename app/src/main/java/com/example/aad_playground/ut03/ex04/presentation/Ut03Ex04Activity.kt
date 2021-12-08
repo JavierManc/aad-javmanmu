@@ -1,16 +1,24 @@
 package com.example.aad_playground.ut03.ex04.presentation
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.example.aad_playground.R
-import com.example.aad_playground.ut03.ex04.data.CustomerLocalRepository
+import com.example.aad_playground.ut03.ex04.data.CustomerDataRepository
 import com.example.aad_playground.ut03.ex04.data.CustomerLocalSource
-import com.example.aad_playground.ut03.ex04.data.InvoiceLocalRepository
+import com.example.aad_playground.ut03.ex04.data.InvoiceDataRepository
 import com.example.aad_playground.ut03.ex04.data.InvoiceLocalSource
-import com.example.aad_playground.ut03.ex04.domain.*
+import com.example.aad_playground.ut03.ex04.domain.CustomerModel
+import com.example.aad_playground.ut03.ex04.domain.InvoiceLinesModel
+import com.example.aad_playground.ut03.ex04.domain.InvoiceModel
+import com.example.aad_playground.ut03.ex04.domain.ProductModel
+import com.example.aad_playground.ut03.ex04.domain.customer_use_case.FetchAllCustomersUseCase
+import com.example.aad_playground.ut03.ex04.domain.customer_use_case.FetchCustomerByIdUseCase
+import com.example.aad_playground.ut03.ex04.domain.customer_use_case.SaveCustomerUseCase
+import com.example.aad_playground.ut03.ex04.domain.invoice_use_case.FetchAllInvoiceUseCase
+import com.example.aad_playground.ut03.ex04.domain.invoice_use_case.FetchInvoiceByIdUseCase
+import com.example.aad_playground.ut03.ex04.domain.invoice_use_case.SaveInvoiceUseCase
 import java.time.LocalDate
 
 class Ut03Ex04Activity : AppCompatActivity() {
@@ -22,19 +30,19 @@ class Ut03Ex04Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ut03_ex04)
         viewModel = Ut03Ex04ViewModel(
-            FetchAllCustomersUseCase(CustomerLocalRepository(CustomerLocalSource(this.applicationContext))),
-            FetchCustomerByIdUseCase(CustomerLocalRepository(CustomerLocalSource(this.applicationContext))),
-            SaveCustomerUseCase(CustomerLocalRepository(CustomerLocalSource(this.applicationContext))),
-            FetchAllInvoiceUseCase(InvoiceLocalRepository(InvoiceLocalSource(this.applicationContext))),
-            FetchInvoiceByIdUseCase(InvoiceLocalRepository(InvoiceLocalSource(this.applicationContext))),
-            SaveInvoiceUseCase(InvoiceLocalRepository(InvoiceLocalSource(this.applicationContext)))
+            FetchAllCustomersUseCase(CustomerDataRepository(CustomerLocalSource(this.applicationContext))),
+            FetchCustomerByIdUseCase(CustomerDataRepository(CustomerLocalSource(this.applicationContext))),
+            SaveCustomerUseCase(CustomerDataRepository(CustomerLocalSource(this.applicationContext))),
+            FetchAllInvoiceUseCase(InvoiceDataRepository(InvoiceLocalSource(this.applicationContext))),
+            FetchInvoiceByIdUseCase(InvoiceDataRepository(InvoiceLocalSource(this.applicationContext))),
+            SaveInvoiceUseCase(InvoiceDataRepository(InvoiceLocalSource(this.applicationContext)))
         )
         customers.forEach { model ->
             viewModel.saveCustomer(model)
         }
         viewModel.fetchAllCustomers()
 
-        invoices.forEach { model->
+        invoices.forEach { model ->
             viewModel.saveInvoice(model)
         }
         viewModel.fetchAllInvoice()

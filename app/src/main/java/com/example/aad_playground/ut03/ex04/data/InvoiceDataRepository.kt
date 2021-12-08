@@ -3,7 +3,7 @@ package com.example.aad_playground.ut03.ex04.data
 import com.example.aad_playground.ut03.ex04.domain.InvoiceModel
 import com.example.aad_playground.ut03.ex04.domain.InvoiceRepository
 
-class InvoiceLocalRepository(private val invoiceLocalSource: InvoiceLocalSource) :
+class InvoiceDataRepository(private val invoiceLocalSource: InvoiceLocalSource) :
     InvoiceRepository {
 
     override fun saveInvoiceList(modelList: List<InvoiceModel>) {
