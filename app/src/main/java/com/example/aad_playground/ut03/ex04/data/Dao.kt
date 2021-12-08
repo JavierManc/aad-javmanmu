@@ -3,6 +3,7 @@ package com.example.aad_playground.ut03.ex04.data
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 
 @Dao
 interface CustomerDao {
@@ -21,9 +22,11 @@ interface CustomerDao {
 @Dao
 interface InvoiceDao {
 
+    @Transaction
     @Query("SELECT * FROM invoice")
     fun findAllInvoice(): List<InvoiceLinesWithCustomer>
 
+    @Transaction
     @Query("SELECT * FROM invoice WHERE id= :id LIMIT 1")
     fun findInvoiceById(id: Int): InvoiceLinesWithCustomer
 
