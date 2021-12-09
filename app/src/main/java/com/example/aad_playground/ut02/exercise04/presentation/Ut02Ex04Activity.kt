@@ -1,7 +1,7 @@
 package com.example.aad_playground.ut02.exercise04.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.aad_playground.databinding.ActivityUt02Ex04Binding
 import com.example.aad_playground.ut02.exercise04.data.CustomerSharPrefLocalSource
 import com.example.aad_playground.ut02.exercise04.data.InvoiceSharPrefLocalSource

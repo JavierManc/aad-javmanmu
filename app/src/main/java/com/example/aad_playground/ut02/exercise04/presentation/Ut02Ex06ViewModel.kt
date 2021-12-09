@@ -3,7 +3,6 @@ package com.example.aad_playground.ut02.exercise04.presentation
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.aad_playground.ut02.exercise04.data.LocalSource
 import com.example.aad_playground.ut02.exercise04.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
