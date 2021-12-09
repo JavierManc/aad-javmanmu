@@ -1,7 +1,6 @@
 package com.example.aad_playground.ut02.exercise04.data
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import com.example.aad_playground.R
 import com.example.aad_playground.ut02.exercise04.domain.IModels
 import com.example.aad_playground.ut02.exercise04.domain.InvoiceModel
@@ -12,12 +11,12 @@ import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
  * Clase para persistir información en SharedPreferences.
  */
 class InvoiceSharPrefLocalSource(
-    activity: AppCompatActivity,
+    context: Context,
     private val json: JsonSerializer
 ) : LocalSource {
 
-    private val sharedpref = activity.getSharedPreferences(
-        activity.getString(R.string.preference_file_exercise04),
+    private val sharedpref = context.getSharedPreferences(
+        context.getString(R.string.preference_file_exercise04),
         Context.MODE_PRIVATE
     )
 

@@ -1,6 +1,6 @@
 package com.example.aad_playground.ut02.exercise04.data
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.aad_playground.R
@@ -13,17 +13,17 @@ import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
  * Clase para persistir información en SharedPreferences Encriptado
  */
 class CustomerSharPrefLocalSource(
-    activity: AppCompatActivity,
+    context: Context,
     private val json: JsonSerializer
 ) : LocalSource {
 
-    private val masterKey = MasterKey.Builder(activity)
+    private val masterKey = MasterKey.Builder(context)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
         .build()
 
     private val encryptSharedPref = EncryptedSharedPreferences(
-        activity,
-        activity.getString(R.string.preference_file_exercise04),
+        context,
+        context.getString(R.string.preference_file_exercise04),
         masterKey,
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
