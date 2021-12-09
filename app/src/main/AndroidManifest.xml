@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AADPlayground">
         <activity
+            android:name=".ut03.ex04.presentation.Ut03Ex04Activity"
+            android:exported="true" />
+        <activity
+            android:name=".ut03.ex03.presentation.Ut03Ex03Activity"
+            android:exported="true"/>
+        <activity
             android:name=".ut03.ex02.presentation.Example02Activity"
             android:exported="true" />
         <activity
@@ -20,16 +26,6 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
-
-        <activity
-            android:name=".ut03.ex03.presentation.Ut03Ex03Activity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
