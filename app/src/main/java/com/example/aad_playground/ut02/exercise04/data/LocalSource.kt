@@ -1,11 +1,11 @@
 package com.example.aad_playground.ut02.exercise04.data
 
-import com.example.aad_playground.ut02.exercise04.domain.IModels
+import com.example.aad_playground.ut02.exercise04.domain.Models
 
 interface LocalSource {
-    fun save(model: IModels)
-    fun save(modelList: List<IModels>)
+    fun save(model: Models)
+    fun save(modelList: List<Models>)
     fun remove(modelId: Int)
-    fun fetch(): List<IModels>
-    fun fetchById(modelId: Int): IModels?
+    fun fetch(): List<Models>
+    fun fetchById(modelId: Int): Models?
 }

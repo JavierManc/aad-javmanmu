@@ -2,12 +2,12 @@ package com.example.aad_playground.ut02.exercise04.domain
 
 import java.util.*
 
-interface IModels {
+interface Models {
     fun getId(): Int
 }
 
 data class CustomerModel(val customerId: Int, val name: String, val surname: String) :
-    IModels {
+    Models {
     override fun getId(): Int = customerId
 }
 
@@ -25,6 +25,6 @@ data class InvoiceModel(
     val date: Date,
     val customerModel: CustomerModel,
     val invoiceLinesModel: List<InvoiceLinesModel>
-) : IModels {
+) : Models {
     override fun getId(): Int = invoiceId
 }

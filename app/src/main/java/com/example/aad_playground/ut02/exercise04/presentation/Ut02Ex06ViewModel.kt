@@ -15,19 +15,19 @@ class Ut02Ex06ViewModel(
     private val saveModelsUseCase: SaveModelsUseCase
 ) : ViewModel() {
 
-    fun saveModelList(modelList: List<IModels>) {
+    fun saveModelList(modelList: List<Models>) {
         saveModelsUseCase.execute(modelList)
     }
 
-    fun saveModel(model: IModels) {
+    fun saveModel(model: Models) {
         saveModelUseCase.execute(model)
     }
 
-    fun getModels(): List<IModels> {
+    fun getModels(): List<Models> {
         return getModelUseCase.execute()
     }
 
-    fun getModel(modelId: Int): IModels? {
+    fun getModel(modelId: Int): Models? {
         return getEspecificModelUseCase.execute(modelId)
     }
 
@@ -35,7 +35,7 @@ class Ut02Ex06ViewModel(
         deleteModelUseCase.execute(modelId)
     }
 
-    fun showModelList(list: List<IModels>) {
+    fun showModelList(list: List<Models>) {
         viewModelScope.launch(Dispatchers.Main) {
             list.forEach { element ->
                 Log.d("Costumers", element.toString())
@@ -44,7 +44,7 @@ class Ut02Ex06ViewModel(
         }
     }
 
-    fun showModel(model: IModels) {
+    fun showModel(model: Models) {
         viewModelScope.launch(Dispatchers.Main) {
             Log.d("Customer", model.toString())
         }

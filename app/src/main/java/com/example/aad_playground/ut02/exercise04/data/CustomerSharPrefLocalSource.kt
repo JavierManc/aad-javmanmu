@@ -5,7 +5,7 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.aad_playground.R
 import com.example.aad_playground.ut02.exercise04.domain.CustomerModel
-import com.example.aad_playground.ut02.exercise04.domain.IModels
+import com.example.aad_playground.ut02.exercise04.domain.Models
 import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
 
 
@@ -32,11 +32,11 @@ class CustomerSharPrefLocalSource(
     /**
      * Función que me permite guardar un cliente en un SharedPreferences.
      */
-    override fun save(model: IModels) {
+    override fun save(model: Models) {
         with(encryptSharedPref.edit()) {
             putString(
                 model.getId().toString(),
-                json.toJson(model, IModels::class.java)
+                json.toJson(model, Models::class.java)
             )
             apply()
         }
@@ -45,7 +45,7 @@ class CustomerSharPrefLocalSource(
     /**
      * Función que me permite guardar un listado de clientes en un SharedPreferences.
      */
-    override fun save(modelList: List<IModels>) {
+    override fun save(modelList: List<Models>) {
         removeAll()
         modelList.map { entity ->
             save(entity)
@@ -102,7 +102,7 @@ class CustomerSharPrefLocalSource(
         return list
     }
 
-    override fun fetchById(modelId: Int): IModels? {
+    override fun fetchById(modelId: Int): Models? {
         return encryptSharedPref.getString(modelId.toString(), "def")
             ?.let { json.fromJson(it, CustomerModel::class.java) }
     }

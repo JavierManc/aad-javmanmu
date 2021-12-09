@@ -2,7 +2,7 @@ package com.example.aad_playground.ut02.exercise04.data
 
 import android.content.Context
 import com.example.aad_playground.R
-import com.example.aad_playground.ut02.exercise04.domain.IModels
+import com.example.aad_playground.ut02.exercise04.domain.Models
 import com.example.aad_playground.ut02.exercise04.domain.InvoiceModel
 import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
 
@@ -23,14 +23,14 @@ class InvoiceSharPrefLocalSource(
     /**
      * Función que me permite guardar un cliente en un sharedprefe.
      */
-    override fun save(model: IModels) {
+    override fun save(model: Models) {
         with(sharedpref.edit()) {
-            putString(model.getId().toString(), json.toJson(model, IModels::class.java))
+            putString(model.getId().toString(), json.toJson(model, Models::class.java))
             apply()
         }
     }
 
-    override fun save(modelList: List<IModels>) {
+    override fun save(modelList: List<Models>) {
         removeAll()
         modelList.map { entity ->
             save(entity)
@@ -59,7 +59,7 @@ class InvoiceSharPrefLocalSource(
     /**
      * Función que me permite obtener un listado de todos los clientes almacenados en un SharedPreferences.
      */
-    override fun fetch(): List<IModels> {
+    override fun fetch(): List<Models> {
         val invoiceList: MutableList<InvoiceModel> = mutableListOf()
         sharedpref.all.map {
             invoiceList.add(it.value as InvoiceModel)
