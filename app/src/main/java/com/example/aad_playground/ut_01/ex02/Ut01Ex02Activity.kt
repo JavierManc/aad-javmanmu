@@ -1,12 +1,11 @@
 package com.example.aad_playground.ut_01.ex02
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.example.aad_playground.R
 import com.example.aad_playground.ut_01.ex02.serializer.GsonSerializer
 import com.google.gson.Gson
-import java.io.File
 import java.util.*
 
 class Ut01Ex02Activity : AppCompatActivity() {
@@ -14,9 +13,6 @@ class Ut01Ex02Activity : AppCompatActivity() {
     private lateinit var customerFileLocalSource: CustomerFileLocalSource
     private lateinit var invoiceFileLocalSource: InvoiceFileLocalSource
 
-    private lateinit var customersFile: File
-
-    private lateinit var invoiceFile: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +51,8 @@ class Ut01Ex02Activity : AppCompatActivity() {
     )
 
     private fun customerPlayGround() {
-        customersFile = File(this.filesDir, "customers.txt")
-        customerFileLocalSource = CustomerFileLocalSource(GsonSerializer(Gson()), customersFile)
+        customerFileLocalSource =
+            CustomerFileLocalSource(GsonSerializer(Gson()), applicationContext)
 
         customerFileLocalSource.save(customers)
         showCustomers(customerFileLocalSource.fetch())
@@ -83,13 +79,12 @@ class Ut01Ex02Activity : AppCompatActivity() {
 
     private fun invoicePlayGround() {
         val customer = customerFileLocalSource.findById(1)
-        invoiceFile = File(this.filesDir, "invoice-${customer.id}")
-        invoiceFileLocalSource = InvoiceFileLocalSource(GsonSerializer(Gson()), invoiceFile)
+        invoiceFileLocalSource = InvoiceFileLocalSource(GsonSerializer(Gson()), applicationContext)
 
         invoiceFileLocalSource.save(invoice)
         showInvoice(invoiceFileLocalSource.fetch().first())
         showInvoice(invoiceFileLocalSource.findById(1))
-        invoiceFileLocalSource.remove()
+        invoiceFileLocalSource.remove(1)
     }
 
     private val invoice: InvoiceModel = InvoiceModel(
