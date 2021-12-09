@@ -8,8 +8,4 @@ class AlertsLocalModel(
     val alertList: List<AlertModel>
 ) : LocalModel {
     override fun getId(): String = alertId
-
-    companion object {
-        val ID: String = AlertsLocalModel::class.java.simpleName
-    }
 }
