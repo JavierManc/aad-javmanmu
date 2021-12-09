@@ -24,9 +24,10 @@ class InvoiceSharPrefLocalSource(
      * Función que me permite guardar un cliente en un sharedprefe.
      */
     override fun save(model: IModels) {
-        val edit = sharedpref.edit()
-        edit.putString(model.getId().toString(), json.toJson(model, IModels::class.java))
-        edit.apply()
+        with(sharedpref.edit()) {
+            putString(model.getId().toString(), json.toJson(model, IModels::class.java))
+            apply()
+        }
     }
 
     override fun save(modelList: List<IModels>) {

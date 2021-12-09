@@ -33,12 +33,13 @@ class CustomerSharPrefLocalSource(
      * Función que me permite guardar un cliente en un SharedPreferences.
      */
     override fun save(model: IModels) {
-        val edit = encryptSharedPref.edit()
-        edit.putString(
-            model.getId().toString(),
-            json.toJson(model, IModels::class.java)
-        )
-        edit.apply()
+        with(encryptSharedPref.edit()) {
+            putString(
+                model.getId().toString(),
+                json.toJson(model, IModels::class.java)
+            )
+            apply()
+        }
     }
 
     /**
