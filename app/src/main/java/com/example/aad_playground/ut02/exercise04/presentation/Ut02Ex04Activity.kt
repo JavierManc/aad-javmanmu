@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.aad_playground.databinding.ActivityUt02Ex04Binding
 import com.example.aad_playground.ut02.exercise04.data.CustomerSharPrefLocalSource
 import com.example.aad_playground.ut02.exercise04.data.InvoiceSharPrefLocalSource
-import com.example.aad_playground.ut02.exercise04.data.LocalDataRepository
+import com.example.aad_playground.ut02.exercise04.data.CustomerDataRepository
+import com.example.aad_playground.ut02.exercise04.data.InvoiceDataRepository
 import com.example.aad_playground.ut02.exercise04.domain.*
 import com.example.aad_playground.ut02.exercise04.serializer.GsonSerializer
 import com.google.gson.Gson
@@ -17,8 +18,7 @@ class Ut02Ex04Activity : AppCompatActivity() {
         ActivityUt02Ex04Binding.inflate(layoutInflater)
     }
 
-    private lateinit var viewModelCostumer: Ut02Ex06ViewModel
-    private lateinit var viewModelInvoice: Ut02Ex06ViewModel
+    private lateinit var viewModel: Ut02Ex06ViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,43 +28,83 @@ class Ut02Ex04Activity : AppCompatActivity() {
 
     private fun setupView() {
         setContentView(bind.root)
-        viewModelCostumer =
+        viewModel =
             Ut02Ex06ViewModel(
-                GetModelUseCase(
-                    LocalDataRepository(
+                GetCustomersUseCase(
+                    CustomerDataRepository(
                         CustomerSharPrefLocalSource(
                             this,
                             GsonSerializer(Gson())
                         )
                     )
                 ),
-                GetEspecificModelUseCase(
-                    LocalDataRepository(
+                GetCustomerByIdUseCase(
+                    CustomerDataRepository(
                         CustomerSharPrefLocalSource(
                             this,
                             GsonSerializer(Gson())
                         )
                     )
                 ),
-                DeleteModelUseCase(
-                    LocalDataRepository(
+                DeleteCustomerUseCase(
+                    CustomerDataRepository(
                         CustomerSharPrefLocalSource(
                             this,
                             GsonSerializer(Gson())
                         )
                     )
                 ),
-                SaveModelUseCase(
-                    LocalDataRepository(
+                SaveCustomerUseCase(
+                    CustomerDataRepository(
                         CustomerSharPrefLocalSource(
                             this,
                             GsonSerializer(Gson())
                         )
                     )
                 ),
-                SaveModelsUseCase(
-                    LocalDataRepository(
+                SaveCustomersUseCase(
+                    CustomerDataRepository(
                         CustomerSharPrefLocalSource(
+                            this,
+                            GsonSerializer(Gson())
+                        )
+                    )
+                ),
+                GetInvoicesUseCase(
+                    InvoiceDataRepository(
+                        InvoiceSharPrefLocalSource(
+                            this,
+                            GsonSerializer(Gson())
+                        )
+                    )
+                ),
+                GetInvoiceByIdUseCase(
+                    InvoiceDataRepository(
+                        InvoiceSharPrefLocalSource(
+                            this,
+                            GsonSerializer(Gson())
+                        )
+                    )
+                ),
+                DeleteInvoiceUseCase(
+                    InvoiceDataRepository(
+                        InvoiceSharPrefLocalSource(
+                            this,
+                            GsonSerializer(Gson())
+                        )
+                    )
+                ),
+                SaveInvoicesUseCase(
+                    InvoiceDataRepository(
+                        InvoiceSharPrefLocalSource(
+                            this,
+                            GsonSerializer(Gson())
+                        )
+                    )
+                ),
+                SaveInvoiceUseCase(
+                    InvoiceDataRepository(
+                        InvoiceSharPrefLocalSource(
                             this,
                             GsonSerializer(Gson())
                         )
@@ -72,76 +112,33 @@ class Ut02Ex04Activity : AppCompatActivity() {
                 )
             )
 
-        viewModelInvoice =
-            Ut02Ex06ViewModel(
-                GetModelUseCase(
-                    LocalDataRepository(
-                        InvoiceSharPrefLocalSource(
-                            this,
-                            GsonSerializer(Gson())
-                        )
-                    )
-                ),
-                GetEspecificModelUseCase(
-                    LocalDataRepository(
-                        InvoiceSharPrefLocalSource(
-                            this,
-                            GsonSerializer(Gson())
-                        )
-                    )
-                ),
-                DeleteModelUseCase(
-                    LocalDataRepository(
-                        InvoiceSharPrefLocalSource(
-                            this,
-                            GsonSerializer(Gson())
-                        )
-                    )
-                ),
-                SaveModelUseCase(
-                    LocalDataRepository(
-                        InvoiceSharPrefLocalSource(
-                            this,
-                            GsonSerializer(Gson())
-                        )
-                    )
-                ),
-                SaveModelsUseCase(
-                    LocalDataRepository(
-                        InvoiceSharPrefLocalSource(
-                            this,
-                            GsonSerializer(Gson())
-                        )
-                    )
-                )
-            )
     }
 
     private fun actionButtons() {
         bind.saveCustomers.setOnClickListener {
-            viewModelCostumer.saveModelList(customers)
+            viewModel.saveCustomerList(customers)
         }
         bind.findCustomer1.setOnClickListener {
-            viewModelCostumer.getModel(1)?.let { it1 -> viewModelCostumer.showModel(it1) }
+            viewModel.saveCustomer(customers[1])
         }
         bind.getCustomers.setOnClickListener {
-            viewModelCostumer.showModelList(viewModelCostumer.getModels())
+            viewModel.showCustomerList(viewModel.getCustomers())
         }
         bind.deleteCustomer.setOnClickListener {
-            viewModelCostumer.removeModel(1)
+            viewModel.removeCustomer(1)
         }
 
         bind.saveInvoice.setOnClickListener {
-            viewModelInvoice.saveModel(invoice)
+            viewModel.saveInvoice(invoice)
         }
         bind.getInvoices.setOnClickListener {
-            viewModelInvoice.showModelList(viewModelInvoice.getModels())
+            viewModel.saveInvoiceList(viewModel.getInvoices())
         }
         bind.findInvoice1.setOnClickListener {
-            viewModelInvoice.getModel(1)?.let { it1 -> viewModelInvoice.showModel(it1) }
+            viewModel.getInvoice(1)
         }
         bind.deleteInvoice.setOnClickListener {
-            viewModelInvoice.removeModel(1)
+            viewModel.removeInvoice(1)
         }
     }
 
@@ -163,8 +160,8 @@ class Ut02Ex04Activity : AppCompatActivity() {
 
     private val invoice: InvoiceModel = InvoiceModel(
         1,
-        Date("24/11/21"),
-        viewModelCostumer.getModel(1) as CustomerModel,
+        Date(),
+        viewModel.getCustomer(1) as CustomerModel,
         mutableListOf(
             InvoiceLinesModel(
                 1,

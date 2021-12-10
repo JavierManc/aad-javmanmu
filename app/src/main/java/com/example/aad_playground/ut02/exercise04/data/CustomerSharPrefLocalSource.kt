@@ -5,7 +5,6 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.aad_playground.R
 import com.example.aad_playground.ut02.exercise04.domain.CustomerModel
-import com.example.aad_playground.ut02.exercise04.domain.Models
 import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
 
 
@@ -15,7 +14,7 @@ import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
 class CustomerSharPrefLocalSource(
     context: Context,
     private val json: JsonSerializer
-) : LocalSource {
+) : CustomerLocalSource {
 
     private val masterKey = MasterKey.Builder(context)
         .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -32,11 +31,11 @@ class CustomerSharPrefLocalSource(
     /**
      * Función que me permite guardar un cliente en un SharedPreferences.
      */
-    override fun save(model: Models) {
+    override fun save(model: CustomerModel) {
         with(encryptSharedPref.edit()) {
             putString(
-                model.getId().toString(),
-                json.toJson(model, Models::class.java)
+                model.customerId.toString(),
+                json.toJson(model, CustomerModel::class.java)
             )
             apply()
         }
@@ -45,9 +44,9 @@ class CustomerSharPrefLocalSource(
     /**
      * Función que me permite guardar un listado de clientes en un SharedPreferences.
      */
-    override fun save(modelList: List<Models>) {
+    override fun save(customerList: List<CustomerModel>) {
         removeAll()
-        modelList.map { entity ->
+        customerList.map { entity ->
             save(entity)
         }
     }
@@ -102,8 +101,8 @@ class CustomerSharPrefLocalSource(
         return list
     }
 
-    override fun fetchById(modelId: Int): Models? {
-        return encryptSharedPref.getString(modelId.toString(), "def")
+    override fun fetchById(customerId: Int): CustomerModel? {
+        return encryptSharedPref.getString(customerId.toString(), "def")
             ?.let { json.fromJson(it, CustomerModel::class.java) }
     }
 }
