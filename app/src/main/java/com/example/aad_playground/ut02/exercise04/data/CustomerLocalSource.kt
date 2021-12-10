@@ -7,6 +7,6 @@ interface CustomerLocalSource {
     fun save(model: CustomerModel)
     fun save(modelList: List<CustomerModel>)
     fun remove(modelId: Int)
-    fun fetch(): List<CustomerModel>
-    fun fetchById(modelId: Int): CustomerModel?
+    fun fetch(): Result<List<CustomerModel>>
+    fun fetchById(modelId: Int): Result<CustomerModel?>
 }

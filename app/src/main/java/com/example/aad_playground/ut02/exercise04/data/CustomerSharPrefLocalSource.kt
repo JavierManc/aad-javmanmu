@@ -5,7 +5,9 @@ import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 import com.example.aad_playground.R
 import com.example.aad_playground.ut02.exercise04.domain.CustomerModel
+import com.example.aad_playground.ut02.exercise04.domain.Failure
 import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
+import java.lang.Exception
 
 
 /**
@@ -93,16 +95,25 @@ class CustomerSharPrefLocalSource(
     /**
      * Función que me permite obtener un listado de todos los clientes almacenados en un SharedPreferences.
      */
-    override fun fetch(): List<CustomerModel> {
-        val list: MutableList<CustomerModel> = mutableListOf()
-        encryptSharedPref.all.map {
-            list.add(it.value as CustomerModel)
+    override fun fetch(): Result<List<CustomerModel>> {
+        return try {
+            val list: MutableList<CustomerModel> = mutableListOf()
+            encryptSharedPref.all.map {
+                list.add(it.value as CustomerModel)
+            }
+            Result.success(list)
+        } catch (ex: Exception) {
+            Result.failure(Failure.XmlError)
         }
-        return list
     }
 
-    override fun fetchById(customerId: Int): CustomerModel? {
-        return encryptSharedPref.getString(customerId.toString(), "def")
-            ?.let { json.fromJson(it, CustomerModel::class.java) }
+    override fun fetchById(customerId: Int): Result<CustomerModel?> {
+        return try {
+            val customerModel = encryptSharedPref.getString(customerId.toString(), "def")
+                ?.let { json.fromJson(it, CustomerModel::class.java) }
+            Result.success(customerModel)
+        } catch (ex: Exception) {
+            Result.failure(Failure.XmlError)
+        }
     }
 }

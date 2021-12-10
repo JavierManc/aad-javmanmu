@@ -17,11 +17,11 @@ class CustomerDataRepository(private val customerLocalSource: CustomerLocalSourc
         customerLocalSource.remove(modelId)
     }
 
-    override fun fetch(): List<CustomerModel> {
+    override fun fetch(): Result<List<CustomerModel>> {
         return customerLocalSource.fetch()
     }
 
-    override fun fetchById(modelId: Int): CustomerModel? {
+    override fun fetchById(modelId: Int): Result<CustomerModel?> {
         return customerLocalSource.fetchById(modelId)
     }
 }

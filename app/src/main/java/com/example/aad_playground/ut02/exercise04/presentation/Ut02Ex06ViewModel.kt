@@ -37,18 +37,20 @@ class Ut02Ex06ViewModel(
         }
     }
 
-    fun getCustomers(): List<CustomerModel> {
-        var customers: List<CustomerModel> = mutableListOf()
+    fun getCustomers(): CustomersViewState {
+        var viewState = CustomersViewState(mutableListOf(), null)
         viewModelScope.launch(Dispatchers.IO) {
-            customers = getCustomersUseCase.execute()
+            val result = getCustomersUseCase.execute()
+            viewState = CustomersViewState(result.getOrNull(), result.exceptionOrNull())
         }
-        return customers
+        return viewState
     }
 
-    fun getCustomer(modelId: Int): CustomerModel? {
-        var customer: CustomerModel? = null
+    fun getCustomer(modelId: Int): CustomerViewState? {
+        var customer: CustomerViewState? = null
         viewModelScope.launch(Dispatchers.IO) {
-            customer = getCustomerByIdUseCase.execute(modelId)
+            val result = getCustomerByIdUseCase.execute(modelId)
+            customer = CustomerViewState(result.getOrNull(), result.exceptionOrNull())
         }
         return customer
     }
@@ -59,18 +61,18 @@ class Ut02Ex06ViewModel(
         }
     }
 
-    fun showCustomerList(list: List<CustomerModel>) {
+    fun showCustomerList(customer: CustomersViewState) {
         viewModelScope.launch(Dispatchers.Main) {
-            list.forEach { element ->
+            customer.customers?.forEach { element ->
                 Log.d("Costumers", element.toString())
             }
 
         }
     }
 
-    fun showCustomers(model: CustomerModel) {
+    fun showCustomers(model: CustomerViewState) {
         viewModelScope.launch(Dispatchers.Main) {
-            Log.d("Customer", model.toString())
+            Log.d("Customer", model.customer.toString())
         }
     }
 
