@@ -4,6 +4,6 @@ interface InvoiceRepository {
     fun save(model: InvoiceModel)
     fun save(modelList: List<InvoiceModel>)
     fun remove(modelId: Int)
-    fun fetch(): List<InvoiceModel>
-    fun fetchById(modelId: Int): InvoiceModel?
+    fun fetch(): Result<List<InvoiceModel>>
+    fun fetchById(modelId: Int): Result<InvoiceModel?>
 }

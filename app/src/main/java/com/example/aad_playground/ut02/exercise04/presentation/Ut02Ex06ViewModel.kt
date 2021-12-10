@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.aad_playground.ut02.exercise04.domain.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 class Ut02Ex06ViewModel(
     private val getCustomersUseCase: GetCustomersUseCase,
@@ -46,8 +47,8 @@ class Ut02Ex06ViewModel(
         return viewState
     }
 
-    fun getCustomer(modelId: Int): CustomerViewState? {
-        var customer: CustomerViewState? = null
+    fun getCustomer(modelId: Int): CustomerViewState {
+        var customer = CustomerViewState(CustomerModel(0, "", ""), null)
         viewModelScope.launch(Dispatchers.IO) {
             val result = getCustomerByIdUseCase.execute(modelId)
             customer = CustomerViewState(result.getOrNull(), result.exceptionOrNull())
@@ -93,18 +94,24 @@ class Ut02Ex06ViewModel(
         }
     }
 
-    fun getInvoices(): List<InvoiceModel> {
-        var invoices: List<InvoiceModel> = mutableListOf()
+    fun getInvoices(): InvoicesViewState {
+        var invoices = InvoicesViewState(mutableListOf(), null)
         viewModelScope.launch(Dispatchers.IO) {
-            invoices = getInvoicesUseCase.execute()
+            val result = getInvoicesUseCase.execute()
+            invoices = InvoicesViewState(result.getOrNull(), result.exceptionOrNull())
         }
         return invoices
     }
 
-    fun getInvoice(modelId: Int): InvoiceModel? {
-        var invoice: InvoiceModel? = null
+    fun getInvoice(modelId: Int): InvoiceViewState {
+        var invoice =
+            InvoiceViewState(
+                InvoiceModel(0, Date(), CustomerModel(0, "", ""), mutableListOf()),
+                null
+            )
         viewModelScope.launch(Dispatchers.IO) {
-            invoice = getInvoiceByIdUseCase.execute(modelId)
+            val result = getInvoiceByIdUseCase.execute(modelId)
+            invoice = InvoiceViewState(result.getOrNull(), result.exceptionOrNull())
         }
         return invoice
     }

@@ -2,8 +2,10 @@ package com.example.aad_playground.ut02.exercise04.data
 
 import android.content.Context
 import com.example.aad_playground.R
+import com.example.aad_playground.ut02.exercise04.domain.Failure
 import com.example.aad_playground.ut02.exercise04.domain.InvoiceModel
 import com.example.aad_playground.ut02.exercise04.serializer.JsonSerializer
+import java.lang.Exception
 
 
 /**
@@ -58,17 +60,25 @@ class InvoiceSharPrefLocalSource(
     /**
      * Función que me permite obtener un listado de todos los clientes almacenados en un SharedPreferences.
      */
-    override fun fetch(): List<InvoiceModel> {
-        val invoiceList: MutableList<InvoiceModel> = mutableListOf()
-        sharedpref.all.map {
-            invoiceList.add(it.value as InvoiceModel)
+    override fun fetch(): Result<List<InvoiceModel>> {
+        return try {
+            val invoiceList: MutableList<InvoiceModel> = mutableListOf()
+            sharedpref.all.map {
+                invoiceList.add(it.value as InvoiceModel)
+            }
+            Result.success(invoiceList)
+        } catch (ex: Exception) {
+            Result.failure(Failure.XmlError)
         }
-
-        return invoiceList
     }
 
-    override fun fetchById(modelId: Int): InvoiceModel? {
-        return sharedpref.getString(modelId.toString(), "def")
-            ?.let { json.fromJson(it, InvoiceModel::class.java) }
+    override fun fetchById(modelId: Int): Result<InvoiceModel?> {
+        return try {
+            val invoice = sharedpref.getString(modelId.toString(), "def")
+                ?.let { json.fromJson(it, InvoiceModel::class.java) }
+            Result.success(invoice)
+        } catch (ex: Exception) {
+            Result.failure(Failure.XmlError)
+        }
     }
 }

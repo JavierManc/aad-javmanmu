@@ -17,11 +17,11 @@ class InvoiceDataRepository(private val invoiceLocalSource: InvoiceLocalSource) 
         invoiceLocalSource.remove(modelId)
     }
 
-    override fun fetch(): List<InvoiceModel> {
+    override fun fetch(): Result<List<InvoiceModel>> {
         return invoiceLocalSource.fetch()
     }
 
-    override fun fetchById(modelId: Int): InvoiceModel? {
+    override fun fetchById(modelId: Int): Result<InvoiceModel?> {
         return invoiceLocalSource.fetchById(modelId)
     }
 
