@@ -20,4 +20,15 @@
 
     <!-- Boton reset ejercicio 3 unidad 2 -->
     <string name="label_button_reset">Reset</string>
+
+    <!-- String del ejercicio 4 de sharedpreferences -->
+    <string name="preference_file_exercise04">ut02_exercise04</string>
+    <string name="save_customers">Guardar clientes</string>
+    <string name="get_customers">Conseguir clientes</string>
+    <string name="remove_customers">Eliminar cliente</string>
+    <string name="get_one_customer">Conseguir cliente 1</string>
+    <string name="save_invoice">Guardar factura</string>
+    <string name="get_invoice">Conseguir facturas</string>
+    <string name="remove_invoice">Eliminar factura</string>
+    <string name="get_one_invoice">Conseguir factura 1</string>
 </resources>
