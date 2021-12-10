@@ -26,23 +26,37 @@ class Ut02Ex06ViewModel(
      */
 
     fun saveCustomerList(modelList: List<CustomerModel>) {
-        saveCustomersUseCase.execute(modelList)
+        viewModelScope.launch(Dispatchers.IO) {
+            saveCustomersUseCase.execute(modelList)
+        }
     }
 
     fun saveCustomer(model: CustomerModel) {
-        saveCustomerUseCase.execute(model)
+        viewModelScope.launch(Dispatchers.IO) {
+            saveCustomerUseCase.execute(model)
+        }
     }
 
     fun getCustomers(): List<CustomerModel> {
-        return getCustomersUseCase.execute()
+        var customers: List<CustomerModel> = mutableListOf()
+        viewModelScope.launch(Dispatchers.IO) {
+            customers = getCustomersUseCase.execute()
+        }
+        return customers
     }
 
     fun getCustomer(modelId: Int): CustomerModel? {
-        return getCustomerByIdUseCase.execute(modelId)
+        var customer: CustomerModel? = null
+        viewModelScope.launch(Dispatchers.IO) {
+            customer = getCustomerByIdUseCase.execute(modelId)
+        }
+        return customer
     }
 
     fun removeCustomer(modelId: Int) {
-        deleteCustomerUseCase.execute(modelId)
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteCustomerUseCase.execute(modelId)
+        }
     }
 
     fun showCustomerList(list: List<CustomerModel>) {
@@ -66,23 +80,37 @@ class Ut02Ex06ViewModel(
      */
 
     fun saveInvoiceList(modelList: List<InvoiceModel>) {
-        saveInvoicesUseCase.execute(modelList)
+        viewModelScope.launch(Dispatchers.IO) {
+            saveInvoicesUseCase.execute(modelList)
+        }
     }
 
     fun saveInvoice(model: InvoiceModel) {
-        saveInvoiceUseCase.execute(model)
+        viewModelScope.launch(Dispatchers.IO) {
+            saveInvoiceUseCase.execute(model)
+        }
     }
 
     fun getInvoices(): List<InvoiceModel> {
-        return getInvoicesUseCase.execute()
+        var invoices: List<InvoiceModel> = mutableListOf()
+        viewModelScope.launch(Dispatchers.IO) {
+            invoices = getInvoicesUseCase.execute()
+        }
+        return invoices
     }
 
     fun getInvoice(modelId: Int): InvoiceModel? {
-        return getInvoiceByIdUseCase.execute(modelId)
+        var invoice: InvoiceModel? = null
+        viewModelScope.launch(Dispatchers.IO) {
+            invoice = getInvoiceByIdUseCase.execute(modelId)
+        }
+        return invoice
     }
 
     fun removeInvoice(modelId: Int) {
-        deleteInvoiceUseCase.execute(modelId)
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteInvoiceUseCase.execute(modelId)
+        }
     }
 
     fun showInvoicesList(list: List<InvoiceModel>) {
